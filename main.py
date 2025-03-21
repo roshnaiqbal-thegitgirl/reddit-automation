@@ -17,7 +17,7 @@ def main():
         reddit_instance = authenticator.get_instance()
 
         # Define subreddit and post limit
-        subreddit_name = "Python"  # Change this as needed
+        subreddit_name = "Python"
         post_limit = 5
 
         # Fetch latest posts

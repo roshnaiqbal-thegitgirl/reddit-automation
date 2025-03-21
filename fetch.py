@@ -69,7 +69,7 @@ class RedditPostFetcher:
 
 # Standalone execution for testing post retrieval
 if __name__ == "__main__":
-    subreddit_name = "Python"  # Change this as needed
+    subreddit_name = "Python"
     fetcher = RedditPostFetcher(subreddit_name)
     posts = fetcher.fetch_with_rate_limit_handling()
 
