@@ -7,14 +7,14 @@ This project automates interactions with Reddit using the **Reddit API (PRAW)**.
 - **Authentication:** Securely connects to Reddit using OAuth.
 - **Fetching Posts:** Retrieves and displays the latest subreddit posts with their titles, authors, and upvote counts.
 - **Error Handling:** Manages authentication failures, API rate limits, and other exceptions.
-- **Modular Code:** Organized structure with `auth.py`, `fetch_posts.py`, and `main.py`.
+- **Modular Code:** Organized structure with `auth.py`, `fetch.py`, and `main.py`.
 - **Secure Credentials:** Uses a `.env` file to store API keys securely.
 
 ## Project Structure
 ```
 reddit-automation/
 │── auth.py           # Handles Reddit API authentication  
-│── fetch_posts.py    # Fetches latest posts from a subreddit  
+│── fetch.py    # Fetches latest posts from a subreddit  
 │── main.py           # Runs the script  
 │── .env              # Stores API credentials (not committed to Git)  
 │── requirements.txt  # Lists dependencies  
@@ -78,11 +78,10 @@ Once set up, run:
 python main.py  
 ```
 
-It will authenticate with Reddit and fetch the latest **5 posts** from the specified subreddit.
+It will authenticate with Reddit and fetch the latest **5 posts** from the specified subreddit (**r/Python**).
 
 ## License
 This project is licensed under the **MIT License**.
 
 ## Contributing
 Feel free to fork the repository, create a new branch, and submit a pull request for improvements.
-
