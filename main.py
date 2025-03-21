@@ -1,8 +1,8 @@
 import logging
 from auth import RedditAuthenticator
-from fetch_posts import RedditPostFetcher
+from fetch import RedditPostFetcher
 
-# Handles logging
+# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -10,34 +10,30 @@ logging.basicConfig(
 )
 
 def main():
-    """Main execution function to authenticate and fetch subreddit posts."""
-    logging.info("Starting Reddit automation script...")
-
-    # Authenticate with Reddit
+    """Authenticates with Reddit and fetches the latest posts from a subreddit."""
     try:
+        # Authenticate with Reddit
         authenticator = RedditAuthenticator()
         reddit_instance = authenticator.get_instance()
-    except Exception as e:
-        logging.critical("Failed to authenticate. Exiting program.")
-        exit(1)
 
-    # Fetch latest posts from a subreddit
-    subreddit_name = "learnpython"  # Change to your target subreddit
-    post_fetcher = RedditPostFetcher(reddit_instance, subreddit_name, post_limit=5)
+        # Define subreddit and post limit
+        subreddit_name = "Python"  # Change this as needed
+        post_limit = 5
 
-    try:
-        posts = post_fetcher.fetch_latest_posts()
+        # Fetch latest posts
+        fetcher = RedditPostFetcher(subreddit_name, post_limit)
+        posts = fetcher.fetch_with_rate_limit_handling()
+
+        # Display the retrieved posts
         if posts:
-            logging.info(f"Displaying {len(posts)} latest posts from r/{subreddit_name}:\n")
-            for i, post in enumerate(posts, start=1):
-                print(f"{i}. Title: {post['title']}\n   Author: {post['author']}\n   Upvotes: {post['upvotes']}\n")
+            logging.info(f"Latest {post_limit} posts from r/{subreddit_name}:")
+            for idx, post in enumerate(posts, 1):
+                logging.info(f"{idx}. {post['title']} (by {post['author']}) - Upvotes: {post['upvotes']}")
         else:
-            logging.warning("No posts retrieved. Check the subreddit name or API response.")
-    
+            logging.warning(f"No posts retrieved from r/{subreddit_name}.")
+
     except Exception as e:
-        logging.error(f"Error fetching posts: {e}")
-    
-    logging.info("Reddit automation script completed.")
+        logging.error(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()
